@@ -1,4 +1,7 @@
 from components.image_reading import *
+from components.image_taking import *
 
-results = image_reading('./images/test.jpg')
+image_taking()
+
+results = image_reading('./images/temp.png')
 print(results)
