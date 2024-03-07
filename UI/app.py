@@ -21,10 +21,10 @@ class main_menu(customtkinter.CTk):
 
     def _take_image(self):
         image_taking()
-        customtkinter.CTkLabel(self, text = " ", image=self._load_image('./images/temp.png')).place(relx=0.5, rely=0.8, anchor=CENTER)
+        customtkinter.CTkLabel(self, text = " ", image=self._load_image('./UI/images/temp.png')).place(relx=0.5, rely=0.8, anchor=CENTER)
     def _read_image(self):
-        results = image_reading('./images/temp.png')
-        print(results)
+        results = image_reading('./UI/images/temp.png')
+        customtkinter.CTkLabel(self, text=results).place(relx=0.5, rely=0.95, anchor=CENTER)
 
     def _load_image(self, image_path):
         img = PILImage.open(image_path)

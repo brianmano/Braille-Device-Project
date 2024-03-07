@@ -14,7 +14,7 @@ def image_taking():
 
     if result: 
     
-        cv2.imwrite("./images/temp.png", image) 
+        cv2.imwrite("./UI/images/temp.png", image) 
     
     else: 
         print("No image detected. Please! try again") 
