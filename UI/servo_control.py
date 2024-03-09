@@ -46,9 +46,11 @@ class ServoControl:
             self.send_command(1)
             self.send_command(2)
             self.send_command(5)
-        else:
+        elif '9' in text:
             self.send_command(2)
             self.send_command(4)
+        else:
+            self.send_command()
 
     def close_connection(self):
         self.ser.close()
