@@ -14,41 +14,28 @@ class ServoControl:
         time.sleep(1)
  
     def control_servos(self, text):
-        if '0' in text:
-            self.send_command(2)
-            self.send_command(4)
-            self.send_command(5)
-        elif '1' in text:
-            self.send_command(1)
-        elif '2' in text:
-            self.send_command(1)
-            self.send_command(2)
-        elif '3' in text:
-            self.send_command(1)
-            self.send_command(4)
-        elif '4' in text:
-            self.send_command(1)
-            self.send_command(4)
-            self.send_command(5)
-        elif '5' in text:
-            self.send_command(1)
-            self.send_command(5)
-        elif '6' in text:
-            self.send_command(1)
-            self.send_command(2)
-            self.send_command(4)
-        elif '7' in text:
-            self.send_command(1)
-            self.send_command(2)
-            self.send_command(4)
-            self.send_command(5)
-        elif '8' in text:
-            self.send_command(1)
-            self.send_command(2)
-            self.send_command(5)
-        else:
-            self.send_command(2)
-            self.send_command(4)
+        text_results = {
+            '0' : [2, 4, 5],
+            '1' : [1],
+            '2' : [1, 2], 
+            '3' : [1, 4],
+            '4' : [1, 4, 5],
+            '5' : [1, 5],
+            '6' : [1, 2, 4],
+            '7' : [1, 2, 4, 5],
+            '8' : [1, 2, 5], 
+            '9' : [2, 4], 
+            'default' : [] #default, no motors turn on 
+        }
+
+        # retrieve the value associated with the key ('text'), otherwise returns default
+        # send holds the list of commands to be sent based on the value of 'text' in the dictionary
+        send = text_results.get(text, text_results['default'])
+
+        # send commands to servo
+        for commands in send:
+            self.send_command(commands)
+
 
     def close_connection(self):
         self.ser.close()

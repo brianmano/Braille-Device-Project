@@ -27,9 +27,15 @@ class main_menu(customtkinter.CTk):
     def _read_image(self):
         results = image_reading('./UI/images/temp.png')
         customtkinter.CTkLabel(self, text=results).place(relx=0.5, rely=0.95, anchor=CENTER)
-        servo_control = ServoControl()
-        servo_control.control_servos(results)
-        servo_control.close_connection()
+        servo = ServoControl()
+
+        #iterate through each phrase in results
+        for phrase in results:
+            # iterate through each character
+            for char in phrase:
+                servo.control_servos(char)
+        
+        servo.close_connection()
 
     def _load_image(self, image_path):
         img = PILImage.open(image_path)
