@@ -3,8 +3,11 @@ from components.image_taking import image_taking
 from PIL import ImageTk, Image as PILImage
 from tkinter import *
 import customtkinter
+import serial
+import time
 
-
+# Establish serial connection with Arduino
+ser = serial.Serial('COM6', 9600)
 
 #color palette
 bg_color = "#121212"
@@ -51,6 +54,11 @@ class main_menu(customtkinter.CTk):
         font_labels = customtkinter.CTkFont(family="Lexend", weight="bold", size=20)
         results = image_reading('./UI/images/temp.png')
         customtkinter.CTkLabel(self, text=results, font=font_labels, bg_color=bg_color).place(relx=0.5, rely=0.8, anchor=CENTER)
+       # Convert the list of results to a string separated by a comma
+        results_str = ','.join(map(str, results))
+
+        # Send the results over serial
+        ser.write(results_str.encode())
 
     def _load_image(self, image_path):
         img = PILImage.open(image_path)
@@ -66,3 +74,4 @@ class main_menu(customtkinter.CTk):
 if __name__ == "__main__":
     app = main_menu()
     app.mainloop()
+    ser.close()
